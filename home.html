@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h1>Welcome to Gordon's Blog</h1>
+<br>
+<div>
+{% for entry in entries %}
+	<a href="/entry/{{entry.locator}}"><h2>{{entry.title}}</h2></a>
+	<blockquote>
+		{{entry.summary()}}
+	</blockquote>
+	
+{% endfor %}
+</div>
+{% endblock body%}

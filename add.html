@@ -1,0 +1,16 @@
+{% extends "admin.html" %}
+{% block body %}
+<form method="post" action="/admin/add">
+  <fieldset>
+    <legend>New Entry</legend>
+    <label>Title</label>
+    <input type="text" name="title" placeholder="Title">
+    <span class="help-block">Leave checked to keep as an unpublished draft.</span>
+    <label class="checkbox">
+      <input type="checkbox" name="draft" value="yes"checked> Draft
+    </label>
+    <textarea class="span10" rows="20" name="content"></textarea>
+    <button type="submit" class="btn">Save</button>
+  </fieldset>
+</form>
+{% endblock body%}

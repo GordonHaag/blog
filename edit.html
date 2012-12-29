@@ -1,0 +1,19 @@
+{% extends "admin.html" %}
+{% block body %}
+
+
+<form method="post" action="/admin/{%if obj.key()%}edit/{{obj.key()}}{%else%}add{%endif%}">
+  <fieldset>
+    <legend>{{obj.title}}</legend>
+    <input type="text" value="{{obj.title}}" name="title">
+    <span class="help-block">Check to move to draft.</span>
+    <label class="checkbox">
+      <input type="checkbox" name="draft" value="yes"> Draft
+    </label>
+    <textarea class="span10" rows="20" name="content">{{obj.markdown}}</textarea>
+    <button type="submit" class="btn">Save</button>
+    <p>Last updated:{{obj.last_updated}}</p>
+  </fieldset>
+</form>
+
+{% endblock body%}

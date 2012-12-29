@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block body %}
+<h2>{{entry.title}}</h2>
+
+{% if entry.DateAdded <= entry.last_updated %}
+	<p><small>Published: {{entry.DateAdded}}</small></p>
+{% else %}
+	<p><small>
+		Originally Published: {{entry.DateAdded}}
+		<br><em>
+		Last Edited: {{entry.last_updated}}
+	</em></small></p>
+{% endif %}
+{{entry.html}}
+{% endblock body%}

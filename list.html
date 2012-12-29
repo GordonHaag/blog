@@ -1,0 +1,8 @@
+{% extends "admin.html" %}
+	{% block body %}
+	<ul>
+	{% for entry in entries %}
+		<li><a href="/admin/edit/{{entry.key()}}">{{entry.title}} | {{entry.summary()}}</a></li>
+	{%endfor%}
+	</ul>
+{% endblock body%}
