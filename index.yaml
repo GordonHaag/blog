@@ -51,3 +51,35 @@ indexes:
     direction: desc
   - name: content
   - name: title
+
+- kind: BlogEntry
+  properties:
+  - name: visible
+  - name: DateAdded
+    direction: desc
+  - name: html
+  - name: title
+
+- kind: BlogEntry
+  properties:
+  - name: visible
+  - name: DateAdded
+    direction: desc
+  - name: locator
+  - name: summary
+  - name: title
+
+- kind: BlogEntry
+  properties:
+  - name: visible
+  - name: DateAdded
+    direction: desc
+  - name: summary
+  - name: title
+
+- kind: BlogEntry
+  properties:
+  - name: visible
+  - name: DateAdded
+    direction: desc
+  - name: title

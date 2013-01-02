@@ -2,12 +2,11 @@
 import webapp2
 import models
 import datetime
-import jinja2 # used for templating
-import os # used by jinja2 
+import jinja2, os # used for templating
 from google.appengine.api import users
 from google.appengine.ext import db
 import markdown
-
+import config
 # open a jinja environment to allow jinja to function
 j = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -15,7 +14,10 @@ j = jinja2.Environment(
 #Frontfacing handlers
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-		entries = db.GqlQuery('''SELECT * FROM BlogEntry WHERE visible=True ORDER BY DateAdded DESC LIMIT 7''')
+		entries = db.GqlQuery('''
+			SELECT title, summary, locator FROM BlogEntry WHERE visible=True ORDER BY DateAdded DESC
+			''').fetch(config.front_page_length)
+		self.response.write(len(entries))
 		template = j.get_template('home.html')
 		self.response.write(template.render({'entries':entries}))
 
@@ -53,13 +55,16 @@ class EntryView(webapp2.RequestHandler):
 		if key: # editing
 			new = db.get(key)
 		else: # adding
-			new = models.BlogEntry()	
+			new = models.BlogEntry()
 		new.title = self.request.get('title')
 		new.markdown = self.request.get('content')
 		new.html = markdown.markdown(self.request.get('content'), output_format='html5')
 		new.last_updated = datetime.datetime.now()
 		new.author = users.get_current_user()
-		new.locator = new.make_locator()
+		new.summary = new.make_summary()
+		if not key: # adding
+			new.locator = new.make_locator() # Locator not changed after edit to not break links.
+
 		if self.request.get('draft') == 'yes':
 			new.visible = False
 		else:

@@ -8,7 +8,7 @@
     <input type="text" value="{{obj.title}}" name="title">
     <span class="help-block">Check to move to draft.</span>
     <label class="checkbox">
-      <input type="checkbox" name="draft" value="yes"> Draft
+      <input type="checkbox" name="draft" value="yes" {% if not obj.visible %}checked{% endif %}> Draft
     </label>
     <textarea class="span10" rows="20" name="content">{{obj.markdown}}</textarea>
     <button type="submit" class="btn">Save</button>
