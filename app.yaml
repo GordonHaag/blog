@@ -1,7 +1,7 @@
 application: blog-gordon
 runtime: python27
 api_version: 1
-threadsafe: yes
+threadsafe: no
 version: 1
 
 handlers:
@@ -18,6 +18,9 @@ handlers:
 - url: /js
   static_dir: js
   expiration: " 0d 1h"
+
+- url: /admin/.*
+  script: admin.app
 
 - url: /.*
   script: main.app
