@@ -7,6 +7,7 @@ from google.appengine.api import users
 from google.appengine.ext import db
 import markdown
 import config
+
 # open a jinja environment to allow jinja to function
 j = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))

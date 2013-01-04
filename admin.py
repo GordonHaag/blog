@@ -6,7 +6,7 @@ import jinja2 # used for templating
 import os # used by jinja2 
 from google.appengine.api import users
 from google.appengine.ext import db
-
+import markdown
 # open a jinja environment to allow jinja to function
 j = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -56,7 +56,20 @@ class AdminList(webapp2.RequestHandler):
 			SELECT * FROM BlogEntry ORDER BY last_updated DESC''')
 		self.response.write(template.render({'entries':entries}))
 
+class LoginHandler(webapp2.RequestHandler):
+    def get(self):
+        user = users.get_current_user()
+        if user:
+            greeting = ("Welcome, %s! (<a href=\"%s\">sign out</a>)" %
+                        (user.nickname(), users.create_logout_url("/")))
+        else:
+            greeting = ("<a href=\"%s\">Sign in or register</a>." %
+                        users.create_login_url("/"))
+
+        self.response.out.write("<html><body>%s</body></html>" % greeting)	
+
 app = webapp2.WSGIApplication([
+	('/login', LoginHandler),
     ('/admin', AdminList),
 	('/admin/', AdminList),
     ('/admin/add', EntryView),

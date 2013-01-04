@@ -2,7 +2,7 @@
 	{% block body %}
 	<ul>
 	{% for entry in entries %}
-		<li><a href="/admin/edit/{{entry.key()}}">{{entry.title}} | {{entry.summary}}</a></li>
+		<li><a href="/admin/edit/{{entry.key()}}">{{entry.title}} | {% if not entry.visible %} Draft {%endif%} <br> <blockquote> {{entry.summary}}</blockquote></a></li>
 	{%endfor%}
 	</ul>
 {% endblock body%}
